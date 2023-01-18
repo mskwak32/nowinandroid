@@ -47,6 +47,7 @@ import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsRes
 fun LazyGridScope.newsFeed(
     feedState: NewsFeedUiState,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
+    onTopicClick: (String) -> Unit,
 ) {
     when (feedState) {
         NewsFeedUiState.Loading -> Unit
@@ -68,6 +69,7 @@ fun LazyGridScope.newsFeed(
                             !userNewsResource.isSaved,
                         )
                     },
+                    onTopicClick = onTopicClick,
                 )
             }
         }
@@ -112,6 +114,7 @@ private fun NewsFeedLoadingPreview() {
             newsFeed(
                 feedState = NewsFeedUiState.Loading,
                 onNewsResourcesCheckedChanged = { _, _ -> },
+                onTopicClick = {},
             )
         }
     }
@@ -128,6 +131,7 @@ private fun NewsFeedContentPreview() {
                     previewUserNewsResources,
                 ),
                 onNewsResourcesCheckedChanged = { _, _ -> },
+                onTopicClick = {},
             )
         }
     }

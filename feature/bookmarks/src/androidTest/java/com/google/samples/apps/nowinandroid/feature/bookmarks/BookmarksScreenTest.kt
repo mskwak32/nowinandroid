@@ -50,7 +50,8 @@ class BookmarksScreenTest {
         composeTestRule.setContent {
             BookmarksScreen(
                 feedState = NewsFeedUiState.Loading,
-                removeFromBookmarks = { },
+                removeFromBookmarks = {},
+                onTopicClick = {},
             )
         }
 
@@ -68,7 +69,8 @@ class BookmarksScreenTest {
                 feedState = NewsFeedUiState.Success(
                     previewUserNewsResources.take(2),
                 ),
-                removeFromBookmarks = { },
+                removeFromBookmarks = {},
+                onTopicClick = {},
             )
         }
 
@@ -110,6 +112,7 @@ class BookmarksScreenTest {
                     assertEquals(previewUserNewsResources[0].id, newsResourceId)
                     removeFromBookmarksCalled = true
                 },
+                onTopicClick = {},
             )
         }
 
@@ -138,7 +141,8 @@ class BookmarksScreenTest {
         composeTestRule.setContent {
             BookmarksScreen(
                 feedState = NewsFeedUiState.Success(emptyList()),
-                removeFromBookmarks = { },
+                removeFromBookmarks = {},
+                onTopicClick = {},
             )
         }
 
