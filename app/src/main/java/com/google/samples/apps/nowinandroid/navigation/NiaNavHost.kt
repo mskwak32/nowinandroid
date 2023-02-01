@@ -20,9 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.google.samples.apps.nowinandroid.feature.bookmarks.navigation.bookmarksScreen
-import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouNavigationRoute
-import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouScreen
+import com.google.samples.apps.nowinandroid.feature.bookmarks.navigation.bookmarksGraph
+import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouGraph
+import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouGraphRoutePattern
 import com.google.samples.apps.nowinandroid.feature.interests.navigation.interestsGraph
 import com.google.samples.apps.nowinandroid.feature.topic.navigation.navigateToTopic
 import com.google.samples.apps.nowinandroid.feature.topic.navigation.topicScreen
@@ -38,7 +38,7 @@ import com.google.samples.apps.nowinandroid.feature.topic.navigation.topicScreen
 fun NiaNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = forYouNavigationRoute,
+    startDestination: String = forYouGraphRoutePattern,
 ) {
     NavHost(
         navController = navController,
@@ -47,8 +47,24 @@ fun NiaNavHost(
     ) {
         val navigateToTopic = { topicId: String -> navController.navigateToTopic(topicId) }
 
-        forYouScreen(onTopicClick = navigateToTopic)
-        bookmarksScreen(onTopicClick = navigateToTopic)
+        forYouGraph(
+            onTopicClick = navigateToTopic,
+            nestedGraphs = {
+                topicScreen(
+                    onBackClick = navController::popBackStack,
+                    onTopicClick = navigateToTopic,
+                )
+            },
+        )
+        bookmarksGraph(
+            onTopicClick = navigateToTopic,
+            nestedGraphs = {
+                topicScreen(
+                    onBackClick = navController::popBackStack,
+                    onTopicClick = navigateToTopic,
+                )
+            },
+        )
         interestsGraph(
             onTopicClick = navigateToTopic,
             nestedGraphs = {

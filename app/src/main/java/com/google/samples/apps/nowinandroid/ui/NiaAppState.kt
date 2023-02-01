@@ -38,7 +38,7 @@ import com.google.samples.apps.nowinandroid.core.data.util.NetworkMonitor
 import com.google.samples.apps.nowinandroid.core.ui.TrackDisposableJank
 import com.google.samples.apps.nowinandroid.feature.bookmarks.navigation.bookmarksRoute
 import com.google.samples.apps.nowinandroid.feature.bookmarks.navigation.navigateToBookmarks
-import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouNavigationRoute
+import com.google.samples.apps.nowinandroid.feature.foryou.navigation.forYouRoute
 import com.google.samples.apps.nowinandroid.feature.foryou.navigation.navigateToForYou
 import com.google.samples.apps.nowinandroid.feature.interests.navigation.interestsRoute
 import com.google.samples.apps.nowinandroid.feature.interests.navigation.navigateToInterestsGraph
@@ -77,7 +77,7 @@ class NiaAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            forYouNavigationRoute -> FOR_YOU
+            forYouRoute -> FOR_YOU
             bookmarksRoute -> BOOKMARKS
             interestsRoute -> INTERESTS
             else -> null

@@ -20,16 +20,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.google.samples.apps.nowinandroid.feature.bookmarks.BookmarksRoute
 
+private const val bookmarksGraphRoutePattern = "bookmarks_graph"
 const val bookmarksRoute = "bookmarks_route"
 
 fun NavController.navigateToBookmarks(navOptions: NavOptions? = null) {
-    this.navigate(bookmarksRoute, navOptions)
+    this.navigate(bookmarksGraphRoutePattern, navOptions)
 }
 
-fun NavGraphBuilder.bookmarksScreen(onTopicClick: (String) -> Unit) {
-    composable(route = bookmarksRoute) {
-        BookmarksRoute(onTopicClick)
+fun NavGraphBuilder.bookmarksGraph(
+    onTopicClick: (String) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
+) {
+    navigation(
+        route = bookmarksGraphRoutePattern,
+        startDestination = bookmarksRoute,
+    ) {
+        composable(route = bookmarksRoute) {
+            BookmarksRoute(onTopicClick)
+        }
+        nestedGraphs()
     }
 }

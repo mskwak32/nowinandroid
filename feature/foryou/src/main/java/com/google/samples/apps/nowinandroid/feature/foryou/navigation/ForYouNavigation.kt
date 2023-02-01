@@ -20,16 +20,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.google.samples.apps.nowinandroid.feature.foryou.ForYouRoute
 
-const val forYouNavigationRoute = "for_you_route"
+const val forYouGraphRoutePattern = "for_you_graph"
+const val forYouRoute = "for_you_route"
 
 fun NavController.navigateToForYou(navOptions: NavOptions? = null) {
-    this.navigate(forYouNavigationRoute, navOptions)
+    this.navigate(forYouGraphRoutePattern, navOptions)
 }
 
-fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
-    composable(route = forYouNavigationRoute) {
-        ForYouRoute(onTopicClick)
+fun NavGraphBuilder.forYouGraph(
+    onTopicClick: (String) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
+) {
+    navigation(
+        route = forYouGraphRoutePattern,
+        startDestination = forYouRoute,
+    ) {
+        composable(route = forYouRoute) {
+            ForYouRoute(onTopicClick)
+        }
+        nestedGraphs()
     }
 }
